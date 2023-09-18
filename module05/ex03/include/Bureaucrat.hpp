@@ -6,7 +6,7 @@
 /*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 14:11:28 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/17 13:11:50 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:07:57 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 #include <string>
 #include <stdexcept>
 #include <climits>
+
+#include "AForm.hpp"
+
+class AForm;
 
 typedef std::string str;
 
@@ -34,6 +38,7 @@ class Bureaucrat {
 		void			promote();
 		void			demote();
 		void			signForm(str name, bool sign);
+		void			executeForm(AForm const & form);
 
 		class GradeTooHighException : public std::exception {
 			public:

@@ -6,7 +6,7 @@
 /*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 17:18:14 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/17 13:26:30 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/18 11:58:47 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,14 @@ void			Bureaucrat::signForm(str name, bool sign) {
 		std::cout << this->_name << " signed " << name << "." << std::endl;
 	else
 		std::cout << this->_name << " couldn't sign " << name << " because he don't have the ability to do this." << std::endl;
+}
+
+void			Bureaucrat::executeForm(AForm const & form) {
+	if (this->_grade > form.getExecuteGrade()) {
+		std::cout << this->_name << " can't execute " << form.getName() << "." << std::endl;
+		throw AForm::GradeTooLowException();
+	}
+	std::cout << this->_name << " executed " << form.getName() << "." << std::endl;
 }
 
 const char *	Bureaucrat::GradeTooHighException::what() const throw() {
