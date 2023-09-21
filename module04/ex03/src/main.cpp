@@ -6,7 +6,7 @@
 /*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:48:11 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/05 14:15:45 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:44:52 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int main() {
 	bob->use(0, *bob);
 	bob->use(1, *bob);
 	bob->use(2, *bob);
+	bob->use(3, *bob);
 
 	bob->unequip(1);
 	
