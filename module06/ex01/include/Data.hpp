@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Data.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 11:20:20 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/21 13:25:49 by babreton         ###   ########.fr       */
+/*   Created: 2023/09/21 13:33:41 by babreton          #+#    #+#             */
+/*   Updated: 2023/09/21 13:35:21 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ScalarConverter.hpp"
+#ifndef _DATA_HPP_
+#define _DATA_HPP_
 
-int	main(int ac, char **av) {
-	if (ac != 2)
-	{
-		std::cout << "Usage: ./convert [string]" << std::endl;
-		return (0);
-	}
-	
-	ScalarConverter::convert(av[1]);
+#include <iostream>
+#include <string>
 
-	return 0;
-}
+typedef std::string str;
+
+class Data {
+	public:
+		Data();
+		Data(Data const &src);
+		~Data();
+
+		Data &	operator=(Data const &rSym);
+		int		getSize() const;
+	private:
+		int	_size;
+};
+
+std::ostream &	operator<<(std::ostream & o, Data const &rSym);
+
+#endif
