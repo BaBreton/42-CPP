@@ -6,7 +6,7 @@
 /*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:23:27 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/24 16:12:43 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:14:33 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,29 @@ typedef std::string str;
 class BitcoinExchange {
 	public:
 		BitcoinExchange();
-		BitcoinExchange(std::ifstream & file);
+		BitcoinExchange(std::ifstream & file, char ** av);
 		BitcoinExchange(BitcoinExchange const &src);
 		~BitcoinExchange();
 
 		BitcoinExchange &	operator=(BitcoinExchange const &rSym);
 
-		void		printMap(int option) const;
+		void		printMap() const;
 
 	private:
-		std::map<str, float>	_input;
 		std::map<str, float>	_map;
+		int						_inputSize;
+		int *					_input;
 
-		void				_parseFile(std::ifstream & file, std::map<str, float> & map, char delimiter);
-		void				_printLine(str key, float value) const ;
-		str &				_getNearestDate(str & key) const;
+		int		_getInputSize(std::ifstream & file) const;
+		void	_parseData(std::ifstream & file);
+		void	_parseInput(std::ifstream & file);
+		bool	_checkDate(str line);
+		bool	_checkPositive(str line);
+		bool	_checkTooLarge(str line);
+		void	_output(std::ifstream & file);
+		str		_nearestDate(str key);
 };
 
-str		trim(const str & str);
+str 		trim(const str & str);
 
 #endif

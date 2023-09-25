@@ -6,7 +6,7 @@
 /*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:32:41 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/24 15:11:34 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:11:56 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,13 @@ int	main(int ac, char **av) {
 	
 	try {
 		testInput(file, ac, av);
-		exchange = new BitcoinExchange(file);
+		exchange = new BitcoinExchange(file, av);
 	}
 	catch (const std::exception & e) {
 		std::cout << e.what() << std::endl;
 		return 1;
 	}
 
-	BitcoinExchange exchange2(*exchange);
-
-	// exchange2.printMap(2);
-	// exchange.printMap(1);
-	
+	delete exchange;
 	return 0;
 }
