@@ -6,7 +6,7 @@
 /*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 13:02:46 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/25 18:16:31 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:39:34 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,8 +213,52 @@ void	BitcoinExchange::_output(std::ifstream & file) {
 }
 
 str		BitcoinExchange::_nearestDate(str key) {
-	str	line;
-	int	year;
-	int	mounth;
-	int day;
+	str								line;
+	int								error = 0;
+
+	char							cYear[4];		int	year;
+	str								sYear;
+
+	char							cMounth[2];		int	mounth;
+	str								sMounth;
+
+	char 							cDay[2];		int	day;
+	str								sDay;
+
+	cYear[key.copy(cYear, 4, 0)] = '\0';
+	cMounth[key.copy(cMounth, 2, 5)] = '\0';
+	cDay[key.copy(cDay, 2, 8)] = '\0';
+
+	year = atoi(cYear);
+	mounth = atoi(cMounth);
+	day = atoi(cDay);
+
+	if (day > 1)
+		day--;
+	else {
+		day = 31;
+		if (mounth > 1)
+			mounth--;
+		else {
+			mounth = 12;
+			if (year > 2009)
+				year--;
+			else
+				error = 1;
+		}
+	}
+
+	if (error == 1)
+		line = SSTR ("" << "Error: Year too old.");
+	else {
+		sYear = SSTR( "" << year);
+		sMounth = mounth > 9 ? SSTR( "" << mounth) : SSTR ("" << "0" << mounth);
+		sDay = day > 9 ? SSTR( "" << day) : SSTR ("" << "0" << day);
+		line = SSTR(sYear << "-" << sMounth << "-" << sDay);
+	}
+	
+	if (this->_map[line] == 0)
+		line = this->_nearestDate(line);
+
+	return line;
 }

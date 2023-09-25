@@ -6,7 +6,7 @@
 /*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:23:27 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/25 18:14:33 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/25 22:39:56 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ class BitcoinExchange {
 		std::map<str, float>	_map;
 		int						_inputSize;
 		int *					_input;
+		str const				_inputPath;
 
 		int		_getInputSize(std::ifstream & file) const;
 		void	_parseData(std::ifstream & file);
