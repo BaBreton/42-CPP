@@ -6,7 +6,7 @@
 /*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 13:02:46 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/26 01:19:05 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:33:38 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange const &src) {
 	this->_map = src._map;
 	this->_inputSize = src._inputSize;
 	this->_input = src._input;
-	this->_inputPath = src._inputSize;
 }
 
 BitcoinExchange::~BitcoinExchange() {
@@ -52,7 +51,6 @@ BitcoinExchange &	BitcoinExchange::operator=(BitcoinExchange const &rSym) {
 		this->_map = rSym._map;
 		this->_inputSize = rSym._inputSize;
 		this->_input = rSym._input;
-		this->_inputPath = rSym._inputSize;
 	}
 	return *this;
 }
