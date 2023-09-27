@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
+/*   By: babreton <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 00:01:11 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/26 01:19:51 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:40:51 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,24 @@ RPN::RPN () {
 }
 
 RPN::RPN(char * input) {
-	int						first;
-	int						second;
-	int						result;
+	int		first;
+	int		second;
+	int		result;
+	
+	int		digit = 0;
+	int		sign = 0;
+
+	for (int i = 0; input[i] != '\0'; i++) {
+		if (input[i] == ' ')
+			i++;
+		if (isdigit(input[i]))
+			digit++;
+		else if ((input[i]) == '*' || (input[i]) == '/' || (input[i]) == '+' || (input[i]) == '-')
+			sign++;
+	}
+
+	if (sign != digit - 1)
+		throw std::runtime_error("Error syntax: You must have one digit more than signs.");
 
 	for (int i = 0; input[i] != '\0'; i++) {
 		if (input[i] == ' ')

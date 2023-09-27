@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
+/*   By: babreton <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 00:02:21 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/26 00:07:57 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:43:26 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ int	main(int ac, char **av) {
 		std::cout << "Error: Usage: ./RPN \"expression\"" << std::endl; return 1;
 	}
 
+	try {
 	RPN	instance(av[1]);
+	}
+	catch (const std::exception & e) {
+		std::cout << e.what() << std::endl;
+	}
 
 	return 0;
 }

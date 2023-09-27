@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
+/*   By: babreton <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:32:41 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/26 01:19:23 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:43:09 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ str		trim(const str & str)
 }
 
 void	testInput(std::ifstream & file, int ac, char **av) {
-	str	name(av[1]);
+	str				name(av[1]);
+	str				line;
+	std::ifstream	lineTest;
 
 	if (ac != 2)
 		throw std::runtime_error("Error: Usage: ./btc [data.csv]");
@@ -32,6 +34,12 @@ void	testInput(std::ifstream & file, int ac, char **av) {
 	file.open(av[1], std::ifstream::in);
 	if (!file.is_open())
 		throw std::runtime_error("Error: Could not open file: " + name);
+	
+	lineTest.open(av[1], std::ifstream::in);
+	while (getline(lineTest, line))
+		if (line.empty())
+			throw std::runtime_error("Error: Empty line in input file.");
+
 }
 
 int	main(int ac, char **av) {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
+/*   By: babreton <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 13:02:46 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/26 11:33:38 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:26:14 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ bool	BitcoinExchange::_checkTooLarge(str line) {
 	getline(s, value, '|');
 
 	f = atof(value.c_str());
-	if (f >= __INT_MAX__)
+	if (f >= static_cast<float>(__INT_MAX__))
 		return false;
 	return true;
 }
@@ -199,9 +199,15 @@ void	BitcoinExchange::_output(std::ifstream & file) {
 		getline(s, value, '|'); value = ::trim(value);
 
 		if (this->_input[i] == 0) {
-			if (this->_map[key] == 0)
-				key = this->_nearestDate(key);
-			std::cout << key << " => " << value << " = " << atof(value.c_str()) * this->_map[key] << std::endl;
+			if (this->_map[key] == 0) {
+				while (this->_map[key] == 0 && key != "Error: Year too old.") {
+					this->_nearestDate(key);
+				}
+			}
+			if (key == "Error: Year too old.")
+				std::cout << key << std::endl;
+			else
+				std::cout << key << " => " << value << " = " << atof(value.c_str()) * this->_map[key] << std::endl;
 		}
 		else if (this->_input[i] == 1)
 			std::cout << "Error: not a positive number." << std::endl;
@@ -216,19 +222,12 @@ void	BitcoinExchange::_output(std::ifstream & file) {
 	}
 }
 
-str		BitcoinExchange::_nearestDate(str key) {
-	str								line;
+void	BitcoinExchange::_nearestDate(str & key) {
 	int								error = 0;
-
 	char							cYear[4];		int	year;
-	str								sYear;
-
 	char							cMounth[2];		int	mounth;
-	str								sMounth;
-
 	char 							cDay[2];		int	day;
-	str								sDay;
-
+	
 	cYear[key.copy(cYear, 4, 0)] = '\0';
 	cMounth[key.copy(cMounth, 2, 5)] = '\0';
 	cDay[key.copy(cDay, 2, 8)] = '\0';
@@ -253,16 +252,16 @@ str		BitcoinExchange::_nearestDate(str key) {
 	}
 
 	if (error == 1)
-		line = SSTR ("" << "Error: Year too old.");
+		key = "Error: Year too old.";
 	else {
-		sYear = SSTR( "" << year);
-		sMounth = mounth > 9 ? SSTR( "" << mounth) : SSTR ("" << "0" << mounth);
-		sDay = day > 9 ? SSTR( "" << day) : SSTR ("" << "0" << day);
-		line = SSTR(sYear << "-" << sMounth << "-" << sDay);
+		key = itos(year) + "-";
+		if (mounth > 9)
+			key += itos(mounth) + "-";
+		else
+			key += "0" + itos(mounth) + "-";
+		if (day > 9)
+			key += itos(day);
+		else
+			key += "0" + itos(day);
 	}
-	
-	if (this->_map[line] == 0)
-		line = this->_nearestDate(line);
-
-	return line;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
+/*   By: babreton <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:23:27 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/25 22:39:56 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:16:43 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 #include <cstdlib>
 
 typedef std::string str;
+
+template <typename T>
+std::string itos(T nb) {
+	std::ostringstream	ss;
+	ss << nb;
+	return ss.str();
+}
 
 #define SSTR( x ) static_cast< std::ostringstream & >( \
         ( std::ostringstream() << std::dec << x ) ).str()
@@ -50,7 +57,7 @@ class BitcoinExchange {
 		bool	_checkPositive(str line);
 		bool	_checkTooLarge(str line);
 		void	_output(std::ifstream & file);
-		str		_nearestDate(str key);
+		void	_nearestDate(str & key);
 };
 
 str 		trim(const str & str);

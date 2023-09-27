@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babreton <babreton@student.42perpignan.fr> +#+  +:+       +#+        */
+/*   By: babreton <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 23:59:47 by babreton          #+#    #+#             */
-/*   Updated: 2023/09/26 00:39:07 by babreton         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:42:04 by babreton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <stack>
 #include <cctype>
 #include <cstdlib>
+#include <stdexcept>
 
 #define SIGN(c) ((c) == '*' || (c) == '/' || (c) == '+' || (c) == '-')
 
